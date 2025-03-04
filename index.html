@@ -74,10 +74,10 @@
                     <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic-calc" type="button" role="tab" aria-controls="basic-calc" aria-selected="true">Basic</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="physics-tab" data-bs-toggle="tab" data-bs-target="#physics-calc" type="button" role="tab" aria-controls="physics-calc" aria-selected="false">placeholder</button>
+                    <button class="nav-link" id="imc-tab" data-bs-toggle="tab" data-bs-target="#imc-calc" type="button" role="tab" aria-controls="imc-calc" aria-selected="false">IMC</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="fractions-tab" data-bs-toggle="tab" data-bs-target="#fractions-calc" type="button" role="tab" aria-controls="fractions-calc" aria-selected="false">placeholder</button>
+                    <button class="nav-link" id="interest-tab" data-bs-toggle="tab" data-bs-target="#interest-calc" type="button" role="tab" aria-controls="interest-calc" aria-selected="false">Compound Interest</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="bmi-tab" data-bs-toggle="tab" data-bs-target="#bmi-calc" type="button" role="tab" aria-controls="bmi-calc" aria-selected="false">placeholder</button>
@@ -101,18 +101,93 @@
             
             <div class="tab-content" id="calculatorContent">
                 <!-- Basic Calculator Tab -->
-                <div class="tab-pane fade show active" id="basic-calc" role="tabpanel" aria-labelledby="basic-tab">
-                    
+                <div class="tab-pane fade show active" id="basic-calc" role="tabpanel" aria-labelledby="basic-tab">                  
+                    <div class="row g-3">
+                        <!-- Num1 -->
+                        <div class="col-md-4">
+                            <label for="num1" class="form-label">First Number</label>
+                            <input type="decimal" id="num1" class="form-control" placeholder="First number">
+                        </div>
+                        <!-- Operation -->
+                        <div class="col-md-4">
+                            <label for="operation" class="form-label">Operation</label>
+                            <select id="operation" class="form-select">
+                                <option value="add">+</option>
+                                <option value="subtract">-</option>
+                                <option value="multiply">*</option>
+                                <option value="divide">/</option>
+                            </select>
+                        </div>
+                        <!-- Num2 -->
+                        <div class="col-md-4">
+                            <label for="num2" class="form-label">Second Number</label>
+                            <input type="decimal" id="num2" class="form-control" placeholder="Second number">
+                        </div>
+                    </div>
+                    <!-- Calculate button -->
+                    <div class="text-center mt-3">
+                        <button id="calculateBasic" class="btn btn-primary">Calculate</button>
+                    </div>
+                    <!-- Result -->
+                    <div class="text-center mt-3">
+                        <h4>Result: <span id="resultBasic">---</span></h4>
+                    </div>
                 </div>
-                
-                <!-- Tab -->
-                <div class="tab-pane fade" id="physics-calc" role="tabpanel" aria-labelledby="physics-tab">
-                    
+
+                <!-- IMC Calculator Tab -->
+                <div class="tab-pane fade" id="imc-calc" role="tabpanel" aria-labelledby="imc-tab">
+                    <div class="container mt-3">
+                        <div class="row g-3">
+                            <!-- Height -->
+                            <div class="col-md-6">
+                                <label for="height" class="form-label">Height (meters)</label>
+                                <input type="text" id="height" class="form-control" inputmode="decimal" placeholder="Height">
+                            </div>
+                            <!-- Weight -->
+                            <div class="col-md-6">
+                                <label for="weight" class="form-label">Weight (kilograms)</label>
+                                <input type="text" id="weight" class="form-control" inputmode="decimal" placeholder="Weight">
+                            </div>
+                        </div>
+                        <!-- Calculate Button -->
+                        <div class="text-center mt-3">
+                            <button id="calculateIMC" class="btn btn-primary">Calculate</button>
+                        </div>
+                        <!-- Result -->
+                        <div class="text-center mt-3">
+                            <h4>Result: <span id="resultIMC">---</span></h4>
+                        </div>
+                    </div>
                 </div>
-                
-                <!-- Tab -->
-                <div class="tab-pane fade" id="fractions-calc" role="tabpanel" aria-labelledby="fractions-tab">
-                    
+
+                <!-- Compound Interest Calculator Tab -->
+                <div class="tab-pane fade" id="interest-calc" role="tabpanel" aria-labelledby="interest-tab">
+                    <div class="container mt-3">
+                        <div class="row g-3">
+                            <!-- Capital -->
+                            <div class="col-md-4">
+                                <label for="capital" class="form-label">Initial capital</label>
+                                <input type="text" id="capital" class="form-control" inputmode="decimal" placeholder="Initial capital">
+                            </div>
+                            <!-- Rate -->
+                            <div class="col-md-4">
+                                <label for="interestRate" class="form-label">Interest rate(%)</label>
+                                <input type="text" id="interestRate" class="form-control" inputmode="decimal" placeholder="Interest rate">
+                            </div>
+                            <!-- Period -->
+                            <div class="col-md-4">
+                                <label for="years" class="form-label">Period(years)</label>
+                                <input type="text" id="years" class="form-control" inputmode="decimal" placeholder="Period">
+                            </div>
+                        </div>
+                        <!-- Calculate Button -->
+                        <div class="text-center mt-3">
+                            <button id="calculateInterest" class="btn btn-primary">Calculate</button>
+                        <!-- Result -->
+                        <div class="text-center mt-3">
+                            <h4>Result: <span id="resultInterest">---</span></h4>
+                        </div>
+                    </div>
                 </div>
                 
                 <!--Tab -->
@@ -140,7 +215,8 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    
+    <script src="functions-calculator.js"></script>
+    <script src="script.js"></script>
 
 </body>
 </html>
