@@ -16,32 +16,32 @@
         
         <div class="calculator-container">
             <ul class="nav nav-tabs" id="calculatorTabs" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic-calc" type="button" role="tab" aria-controls="basic-calc" aria-selected="true">Basic</button>
+                <li class="nav-item col-md-4" role="presentation">
+                    <button class="nav-link active col-12" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic-calc" type="button" role="tab" aria-controls="basic-calc" aria-selected="true">Basic</button>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="imc-tab" data-bs-toggle="tab" data-bs-target="#imc-calc" type="button" role="tab" aria-controls="imc-calc" aria-selected="false">IMC</button>
+                <li class="nav-item col-md-4" role="presentation">
+                    <button class="nav-link col-12" id="imc-tab" data-bs-toggle="tab" data-bs-target="#imc-calc" type="button" role="tab" aria-controls="imc-calc" aria-selected="false">IMC</button>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="interest-tab" data-bs-toggle="tab" data-bs-target="#interest-calc" type="button" role="tab" aria-controls="interest-calc" aria-selected="false">Compound Interest</button>
+                <li class="nav-item col-md-4" role="presentation">
+                    <button class="nav-link col-12" id="interest-tab" data-bs-toggle="tab" data-bs-target="#interest-calc" type="button" role="tab" aria-controls="interest-calc" aria-selected="false">Compound Interest</button>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="bmi-tab" data-bs-toggle="tab" data-bs-target="#bmi-calc" type="button" role="tab" aria-controls="bmi-calc" aria-selected="false">placeholder</button>
+                <li class="nav-item col-md-4" role="presentation">
+                    <button class="nav-link col-12" id="fractions-tab" data-bs-toggle="tab" data-bs-target="#fractions-calc" type="button" role="tab" aria-controls="fractions-calc" aria-selected="false">Fractions</button>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="bmi-tab" data-bs-toggle="tab" data-bs-target="#bmi-calc" type="button" role="tab" aria-controls="bmi-calc" aria-selected="false">placeholder</button>
+                <li class="nav-item col-md-4" role="presentation">
+                    <button class="nav-link col-12" id="units-tab" data-bs-toggle="tab" data-bs-target="#units-calc" type="button" role="tab" aria-controls="units-calc" aria-selected="false">Units Converter</button>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="bmi-tab" data-bs-toggle="tab" data-bs-target="#bmi-calc" type="button" role="tab" aria-controls="bmi-calc" aria-selected="false">placeholder</button>
+                <li class="nav-item col-md-4" role="presentation">
+                    <button class="nav-link col-12" id="speed-tab" data-bs-toggle="tab" data-bs-target="#speed-calc" type="button" role="tab" aria-controls="speed-calc" aria-selected="false">Distance/Time/Speed</button>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="bmi-tab" data-bs-toggle="tab" data-bs-target="#bmi-calc" type="button" role="tab" aria-controls="bmi-calc" aria-selected="false">placeholder</button>
+                <li class="nav-item col-md-4" role="presentation">
+                    <button class="nav-link col-12" id="bmi-tab" data-bs-toggle="tab" data-bs-target="#bmi-calc" type="button" role="tab" aria-controls="bmi-calc" aria-selected="false">placeholder</button>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="bmi-tab" data-bs-toggle="tab" data-bs-target="#bmi-calc" type="button" role="tab" aria-controls="bmi-calc" aria-selected="false">placeholder</button>
+                <li class="nav-item col-md-4" role="presentation">
+                    <button class="nav-link col-12" id="bmi-tab" data-bs-toggle="tab" data-bs-target="#bmi-calc" type="button" role="tab" aria-controls="bmi-calc" aria-selected="false">placeholder</button>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="bmi-tab" data-bs-toggle="tab" data-bs-target="#bmi-calc" type="button" role="tab" aria-controls="bmi-calc" aria-selected="false">placeholder</button>
+                <li class="nav-item col-md-4" role="presentation">
+                    <button class="nav-link col-12" id="bmi-tab" data-bs-toggle="tab" data-bs-target="#bmi-calc" type="button" role="tab" aria-controls="bmi-calc" aria-selected="false">placeholder</button>
                 </li>
             </ul>
             
@@ -129,24 +129,112 @@
                         <!-- Calculate Button -->
                         <div class="text-center mt-3">
                             <button id="calculateInterest" class="btn btn-primary">Calculate</button>
-                        <!-- Result -->
-                        <div class="text-center mt-3">
-                            <h4>Result: <span id="resultInterest">---</span></h4>
+                            <!-- Result -->
+                            <div class="text-center mt-3">
+                                <h4>Result: <span id="resultInterest">---</span></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fractions Calculator Tab -->
+                <div class="tab-pane fade" id="fractions-calc" role="tabpanel" aria-labelledby="fractions-tab">
+                    <div class="calculator-container p-3">
+                        <h3>Fractions Calculator</h3>
+                        <div class="row g-3 mb-3">
+                            <div class="col-5">
+                                <input type="number" id="fraction1-num" class="form-control" placeholder="Numerator">
+                                <hr class="my-1">
+                                <input type="number" id="fraction1-den" class="form-control" placeholder="Denominator">
+                            </div>
+                            <div class="col-2 d-flex align-items-center justify-content-center">
+                                <select id="fraction-operation" class="form-select">
+                                    <option value="add">+</option>
+                                    <option value="subtract">-</option>
+                                    <option value="multiply">*</option>
+                                    <option value="divide">÷</option>
+                                </select>
+                            </div>
+                            <div class="col-5">
+                                <input type="number" id="fraction2-num" class="form-control" placeholder="Numerator">
+                                <hr class="my-1">
+                                <input type="number" id="fraction2-den" class="form-control" placeholder="Denominator">
+                            </div>
+                        </div>
+                        
+                        <button id="calculate-fraction" class="btn btn-primary">Calculate</button>
+                        
+                        <div class="mt-3 p-2 border rounded bg-light">
+                            <h4>Result:</h4>
+                            <div id="fraction-result" class="fs-4 text-center">
+                                <span id="result-num">0</span>/<span id="result-den">1</span>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
-                <!--Tab -->
-                <div class="tab-pane fade" id="bmi-calc" role="tabpanel" aria-labelledby="bmi-tab2">
-                    
+                <!-- Units converter Tab-->
+                <div class="tab-pane fade" id="units-calc" role="tabpanel" aria-labelledby="units-tab">
+                    <div class="calculator-container p-3">
+                        <h3>Units Converter</h3>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Type of unit:</label>
+                            <select id="unit-type" class="form-select">
+                                <option value="length">Length</option>
+                                <option value="mass">Mass</option>
+                                <option value="volume">Volume</option>
+                                <option value="temperature">Temperature</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Value:</label>
+                            <div class="input-group">
+                                <input type="number" id="unit-value" class="form-control" placeholder="Enter value">
+                                <select id="unit-from" class="form-select">
+                                    <option value="m">meters</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Convert to:</label>
+                            <select id="unit-to" class="form-select">
+                                <option value="km">kilometers</option>
+                            </select>
+                        </div>
+                        
+                        <button id="convert-unit" class="btn btn-primary">Convert</button>
+                        
+                        <div class="mt-3 p-2 border rounded bg-light">
+                            <h4>Result:</h4>
+                            <div id="unit-result" class="fs-4 text-center">0</div>
+                        </div>
+                    </div>
                 </div>
+                
+                                <!-- Distance, Time and Speed Calculator Tab-->
+                <div class="tab-pane fade" id="speed-calc" role="tabpanel" aria-labelledby="speed-tab">
+                    <div class="calculator-container p-3">
+                        <h3>Distance, Time and Speed Calculator</h3>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Distance (km):</label>
+                            <input type="number" id="distance-input" class="form-control" placeholder="Enter distance">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Time (hours):</label>
+                            <input type="number" id="time-input" class="form-control" placeholder="Enter time">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Speed (km/h):</label>
+                            <input type="number" id="speed-input" class="form-control" placeholder="Enter speed">
+                        </div>
+                    </div>
+                </div>
+
                 <!--Tab -->
-                <div class="tab-pane fade" id="bmi-calc1" role="tabpanel" aria-labelledby="bmi-tab3">
-                    
-                </div><!--Tab -->
-                <div class="tab-pane fade" id="bmi-calc2" role="tabpanel" aria-labelledby="bmi-tab">
-                    
-                </div><!--Tab -->
                 <div class="tab-pane fade" id="bmi-calc3" role="tabpanel" aria-labelledby="bmi-tab">
                     
                 </div><!--Tab -->
