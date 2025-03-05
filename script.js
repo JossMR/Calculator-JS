@@ -324,3 +324,97 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+// ---- PRIME NUMBER CALCULATOR ----
+document.addEventListener('DOMContentLoaded', function() {
+    // Add this to your existing DOMContentLoaded event listener
+    // or keep as a separate listener
+
+    // Check Prime functionality
+    const checkPrimeInput = document.getElementById('check-prime-input');
+    const checkPrimeBtn = document.getElementById('check-prime-btn');
+    const checkPrimeResult = document.getElementById('check-prime-result');
+
+    checkPrimeBtn.addEventListener('click', function() {
+        const number = parseInt(checkPrimeInput.value);
+
+        // Validate input
+        if (isNaN(number) || number < 0 || !Number.isInteger(number)) {
+            checkPrimeResult.textContent = "Please enter a valid positive integer";
+            return;
+        }
+
+        const result = isPrime(number);
+
+        if (result) {
+            checkPrimeResult.textContent = `${number} is a prime number`;
+        } else {
+            checkPrimeResult.textContent = `${number} is not a prime number`;
+        }
+    });
+
+    // Find Primes functionality
+    const primesFromInput = document.getElementById('primes-from');
+    const primesToInput = document.getElementById('primes-to');
+    const findPrimesBtn = document.getElementById('find-primes-btn');
+    const primesCount = document.getElementById('primes-count');
+    const primesList = document.getElementById('primes-list');
+
+    findPrimesBtn.addEventListener('click', function() {
+        const from = parseInt(primesFromInput.value);
+        const to = parseInt(primesToInput.value);
+
+        // Validate input
+        if (isNaN(from) || isNaN(to) || from < 0 || to < 0 || from > to) {
+            primesCount.textContent = "Please enter valid range values";
+            primesList.textContent = "";
+            return;
+        }
+
+        // Check range size to prevent browser freezing
+        if (to - from > 100000) {
+            primesCount.textContent = "Range too large. Please use a range of 100,000 or less.";
+            primesList.textContent = "";
+            return;
+        }
+
+        const primes = findPrimesInRange(from, to);
+
+        // Display results
+        primesCount.textContent = `Found ${primes.length} prime number${primes.length !== 1 ? 's' : ''} between ${from} and ${to}`;
+
+        if (primes.length > 0) {
+            // Format primes in a readable way
+            const primesFormatted = primes.join(", ");
+            primesList.textContent = primesFormatted;
+        } else {
+            primesList.textContent = "No prime numbers found in this range";
+        }
+    });
+
+    // Prime Factorization functionality
+    const factorizeInput = document.getElementById('factorize-input');
+    const factorizeBtn = document.getElementById('factorize-btn');
+    const factorizeResult = document.getElementById('factorize-result');
+
+    factorizeBtn.addEventListener('click', function() {
+        const number = parseInt(factorizeInput.value);
+
+        // Validate input
+        if (isNaN(number) || number <= 0 || !Number.isInteger(number)) {
+            factorizeResult.textContent = "Please enter a valid positive integer";
+            return;
+        }
+
+        // Handle special case for 1
+        if (number === 1) {
+            factorizeResult.textContent = "1 = 1 (not a product of primes)";
+            return;
+        }
+
+        const factors = primeFactorization(number);
+        const factorizationExpression = formatPrimeFactorization(factors);
+
+        factorizeResult.textContent = `${number} = ${factorizationExpression}`;
+    });
+});
