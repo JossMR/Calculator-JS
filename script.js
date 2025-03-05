@@ -222,3 +222,40 @@ function reCalculateDistanceTimeSpeed() {
 distanceInput.addEventListener('input', reCalculateDistanceTimeSpeed);
 timeInput.addEventListener('input', reCalculateDistanceTimeSpeed);
 speedInput.addEventListener('input', reCalculateDistanceTimeSpeed);
+
+// ---- QUADRATIC EQUATION CALCULATOR ----
+document.addEventListener('DOMContentLoaded', function() {
+    // Add this to your existing DOMContentLoaded event listener
+    // or create a new one if needed
+
+    // Quadratic Equation Solver
+    const calculateQuadratic = document.getElementById('calculate-quadratic');
+    const coefA = document.getElementById('coef-a');
+    const coefB = document.getElementById('coef-b');
+    const coefC = document.getElementById('coef-c');
+    const quadraticResult = document.getElementById('quadratic-result');
+
+    calculateQuadratic.addEventListener('click', function() {
+        const a = parseFloat(coefA.value) || 0;
+        const b = parseFloat(coefB.value) || 0;
+        const c = parseFloat(coefC.value) || 0;
+
+        const result = solveQuadraticEquation(a, b, c);
+
+        let resultText = '';
+
+        if (result === "Not a valid equation") {
+            resultText = "Not a valid equation (a and b cannot both be zero)";
+        } else if (result.type === "linear") {
+            resultText = `This is a linear equation with solution: x = ${result.x}`;
+        } else if (result.type === "two_real") {
+            resultText = `Two real solutions: x₁ = ${result.x1} and x₂ = ${result.x2}`;
+        } else if (result.type === "one_real") {
+            resultText = `One real solution (double root): x = ${result.x}`;
+        } else if (result.type === "complex") {
+            resultText = `Complex solutions: x₁ = ${result.realPart} + ${result.imaginaryPart}i and x₂ = ${result.realPart} - ${result.imaginaryPart}i`;
+        }
+
+        quadraticResult.textContent = resultText;
+    });
+});

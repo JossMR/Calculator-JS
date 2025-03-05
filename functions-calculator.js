@@ -173,3 +173,49 @@ function calcularTiempo(distancia, velocidad) {
 function calcularDistancia(velocidad, tiempo) {
     return (velocidad * tiempo).toFixed(2);
 }
+
+// ---- QUADRATIC EQUATION CALCULATOR ----
+function solveQuadraticEquation(a, b, c) {
+    // Check if a is zero (not a quadratic equation)
+    if (a === 0) {
+        if (b === 0) {
+            return "Not a valid equation";
+        }
+        // It's a linear equation: bx + c = 0
+        return {
+            type: "linear",
+            x: -c / b
+        };
+    }
+
+    // Calculate the discriminant
+    const discriminant = b * b - 4 * a * c;
+
+    if (discriminant > 0) {
+        // Two real solutions
+        const x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+        const x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+        return {
+            type: "two_real",
+            x1: x1.toFixed(4),
+            x2: x2.toFixed(4)
+        };
+    } else if (discriminant === 0) {
+        // One real solution (double root)
+        const x = -b / (2 * a);
+        return {
+            type: "one_real",
+            x: x.toFixed(4)
+        };
+    } else {
+        // Complex solutions
+        const realPart = (-b / (2 * a)).toFixed(4);
+        const imaginaryPart = (Math.sqrt(-discriminant) / (2 * a)).toFixed(4);
+        return {
+            type: "complex",
+            realPart: realPart,
+            imaginaryPart: imaginaryPart
+        };
+    }
+}
+
