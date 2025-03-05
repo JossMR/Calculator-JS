@@ -222,3 +222,199 @@ function reCalculateDistanceTimeSpeed() {
 distanceInput.addEventListener('input', reCalculateDistanceTimeSpeed);
 timeInput.addEventListener('input', reCalculateDistanceTimeSpeed);
 speedInput.addEventListener('input', reCalculateDistanceTimeSpeed);
+
+// ---- QUADRATIC EQUATION CALCULATOR ----
+document.addEventListener('DOMContentLoaded', function() {
+    // Add this to your existing DOMContentLoaded event listener
+    // or create a new one if needed
+
+    // Quadratic Equation Solver
+    const calculateQuadratic = document.getElementById('calculate-quadratic');
+    const coefA = document.getElementById('coef-a');
+    const coefB = document.getElementById('coef-b');
+    const coefC = document.getElementById('coef-c');
+    const quadraticResult = document.getElementById('quadratic-result');
+
+    calculateQuadratic.addEventListener('click', function() {
+        const a = parseFloat(coefA.value) || 0;
+        const b = parseFloat(coefB.value) || 0;
+        const c = parseFloat(coefC.value) || 0;
+
+        const result = solveQuadraticEquation(a, b, c);
+
+        let resultText = '';
+
+        if (result === "Not a valid equation") {
+            resultText = "Not a valid equation (a and b cannot both be zero)";
+        } else if (result.type === "linear") {
+            resultText = `This is a linear equation with solution: x = ${result.x}`;
+        } else if (result.type === "two_real") {
+            resultText = `Two real solutions: x₁ = ${result.x1} and x₂ = ${result.x2}`;
+        } else if (result.type === "one_real") {
+            resultText = `One real solution (double root): x = ${result.x}`;
+        } else if (result.type === "complex") {
+            resultText = `Complex solutions: x₁ = ${result.realPart} + ${result.imaginaryPart}i and x₂ = ${result.realPart} - ${result.imaginaryPart}i`;
+        }
+
+        quadraticResult.textContent = resultText;
+    });
+});
+
+// ---- AGE CALCULATOR ----
+document.addEventListener('DOMContentLoaded', function() {
+    // Add this to your existing DOMContentLoaded event listener
+    // or create a new one if needed
+
+    const birthDateInput = document.getElementById('birth-date');
+    const useCustomDateCheckbox = document.getElementById('use-custom-date');
+    const referenceDateContainer = document.getElementById('reference-date-container');
+    const referenceDateInput = document.getElementById('reference-date');
+    const calculateAgeButton = document.getElementById('calculate-age');
+    const ageResult = document.getElementById('age-result');
+    const ageYears = document.getElementById('age-years');
+    const ageMonths = document.getElementById('age-months');
+    const ageDays = document.getElementById('age-days');
+
+    // Set default value for reference date (today)
+    const today = new Date();
+    const formattedDate = today.toISOString().substring(0, 10); // Format as YYYY-MM-DD
+    referenceDateInput.value = formattedDate;
+
+    // Toggle reference date input visibility
+    useCustomDateCheckbox.addEventListener('change', function() {
+        referenceDateContainer.style.display = this.checked ? 'block' : 'none';
+    });
+
+    calculateAgeButton.addEventListener('click', function() {
+        const birthDate = new Date(birthDateInput.value);
+
+        // Check if birth date is valid
+        if (isNaN(birthDate.getTime())) {
+            ageResult.textContent = "Please enter a valid birth date";
+            ageYears.textContent = "";
+            ageMonths.textContent = "";
+            ageDays.textContent = "";
+            return;
+        }
+
+        const referenceDate = useCustomDateCheckbox.checked ?
+            new Date(referenceDateInput.value) : new Date();
+
+        // Check if reference date is valid
+        if (isNaN(referenceDate.getTime())) {
+            ageResult.textContent = "Please enter a valid reference date";
+            ageYears.textContent = "";
+            ageMonths.textContent = "";
+            ageDays.textContent = "";
+            return;
+        }
+
+        const age = calculateAge(birthDate, referenceDate);
+
+        if (age.error) {
+            ageResult.textContent = age.error;
+            ageYears.textContent = "";
+            ageMonths.textContent = "";
+            ageDays.textContent = "";
+        } else {
+            ageResult.textContent = `${age.years} years, ${age.months} months, and ${age.days} days`;
+            ageYears.textContent = `Total years: ${age.years}`;
+            ageMonths.textContent = `Total months: ${age.years * 12 + age.months}`;
+            ageDays.textContent = `Total days: ${age.totalDays}`;
+        }
+    });
+});
+
+// ---- PRIME NUMBER CALCULATOR ----
+document.addEventListener('DOMContentLoaded', function() {
+    // Add this to your existing DOMContentLoaded event listener
+    // or keep as a separate listener
+
+    // Check Prime functionality
+    const checkPrimeInput = document.getElementById('check-prime-input');
+    const checkPrimeBtn = document.getElementById('check-prime-btn');
+    const checkPrimeResult = document.getElementById('check-prime-result');
+
+    checkPrimeBtn.addEventListener('click', function() {
+        const number = parseInt(checkPrimeInput.value);
+
+        // Validate input
+        if (isNaN(number) || number < 0 || !Number.isInteger(number)) {
+            checkPrimeResult.textContent = "Please enter a valid positive integer";
+            return;
+        }
+
+        const result = isPrime(number);
+
+        if (result) {
+            checkPrimeResult.textContent = `${number} is a prime number`;
+        } else {
+            checkPrimeResult.textContent = `${number} is not a prime number`;
+        }
+    });
+
+    // Find Primes functionality
+    const primesFromInput = document.getElementById('primes-from');
+    const primesToInput = document.getElementById('primes-to');
+    const findPrimesBtn = document.getElementById('find-primes-btn');
+    const primesCount = document.getElementById('primes-count');
+    const primesList = document.getElementById('primes-list');
+
+    findPrimesBtn.addEventListener('click', function() {
+        const from = parseInt(primesFromInput.value);
+        const to = parseInt(primesToInput.value);
+
+        // Validate input
+        if (isNaN(from) || isNaN(to) || from < 0 || to < 0 || from > to) {
+            primesCount.textContent = "Please enter valid range values";
+            primesList.textContent = "";
+            return;
+        }
+
+        // Check range size to prevent browser freezing
+        if (to - from > 100000) {
+            primesCount.textContent = "Range too large. Please use a range of 100,000 or less.";
+            primesList.textContent = "";
+            return;
+        }
+
+        const primes = findPrimesInRange(from, to);
+
+        // Display results
+        primesCount.textContent = `Found ${primes.length} prime number${primes.length !== 1 ? 's' : ''} between ${from} and ${to}`;
+
+        if (primes.length > 0) {
+            // Format primes in a readable way
+            const primesFormatted = primes.join(", ");
+            primesList.textContent = primesFormatted;
+        } else {
+            primesList.textContent = "No prime numbers found in this range";
+        }
+    });
+
+    // Prime Factorization functionality
+    const factorizeInput = document.getElementById('factorize-input');
+    const factorizeBtn = document.getElementById('factorize-btn');
+    const factorizeResult = document.getElementById('factorize-result');
+
+    factorizeBtn.addEventListener('click', function() {
+        const number = parseInt(factorizeInput.value);
+
+        // Validate input
+        if (isNaN(number) || number <= 0 || !Number.isInteger(number)) {
+            factorizeResult.textContent = "Please enter a valid positive integer";
+            return;
+        }
+
+        // Handle special case for 1
+        if (number === 1) {
+            factorizeResult.textContent = "1 = 1 (not a product of primes)";
+            return;
+        }
+
+        const factors = primeFactorization(number);
+        const factorizationExpression = formatPrimeFactorization(factors);
+
+        factorizeResult.textContent = `${number} = ${factorizationExpression}`;
+    });
+});

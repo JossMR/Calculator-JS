@@ -173,3 +173,193 @@ function calcularTiempo(distancia, velocidad) {
 function calcularDistancia(velocidad, tiempo) {
     return (velocidad * tiempo).toFixed(2);
 }
+
+// ---- QUADRATIC EQUATION CALCULATOR ----
+function solveQuadraticEquation(a, b, c) {
+    // Check if a is zero (not a quadratic equation)
+    if (a === 0) {
+        if (b === 0) {
+            return "Not a valid equation";
+        }
+        // It's a linear equation: bx + c = 0
+        return {
+            type: "linear",
+            x: -c / b
+        };
+    }
+
+    // Calculate the discriminant
+    const discriminant = b * b - 4 * a * c;
+
+    if (discriminant > 0) {
+        // Two real solutions
+        const x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+        const x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+        return {
+            type: "two_real",
+            x1: x1.toFixed(4),
+            x2: x2.toFixed(4)
+        };
+    } else if (discriminant === 0) {
+        // One real solution (double root)
+        const x = -b / (2 * a);
+        return {
+            type: "one_real",
+            x: x.toFixed(4)
+        };
+    } else {
+        // Complex solutions
+        const realPart = (-b / (2 * a)).toFixed(4);
+        const imaginaryPart = (Math.sqrt(-discriminant) / (2 * a)).toFixed(4);
+        return {
+            type: "complex",
+            realPart: realPart,
+            imaginaryPart: imaginaryPart
+        };
+    }
+}
+
+
+// ---- AGE CALCULATOR ----
+function calculateAge(birthDate, referenceDate = new Date()) {
+    // Clone dates to avoid modifying the originals
+    const birth = new Date(birthDate);
+    const reference = new Date(referenceDate);
+
+    // Validate dates
+    if (isNaN(birth.getTime()) || isNaN(reference.getTime())) {
+        return { error: "Invalid date" };
+    }
+
+    // Check if birth date is in the future compared to reference date
+    if (birth > reference) {
+        return { error: "Birth date cannot be in the future" };
+    }
+
+    // Extract year, month, and day
+    let years = reference.getFullYear() - birth.getFullYear();
+    let months = reference.getMonth() - birth.getMonth();
+    let days = reference.getDate() - birth.getDate();
+
+    // Adjust negative days
+    if (days < 0) {
+        // Get number of days in the previous month of reference date
+        const prevMonth = new Date(reference.getFullYear(), reference.getMonth() - 1, 1);
+        const daysInPrevMonth = new Date(prevMonth.getFullYear(), prevMonth.getMonth() + 1, 0).getDate();
+
+        days += daysInPrevMonth;
+        months--;
+    }
+
+    // Adjust negative months
+    if (months < 0) {
+        months += 12;
+        years--;
+    }
+
+    return {
+        years: years,
+        months: months,
+        days: days,
+        totalDays: Math.floor((reference - birth) / (1000 * 60 * 60 * 24))
+    };
+}
+// ---- PRIME NUMBER CALCULATOR ----
+
+/**
+ * Check if a number is prime
+ * @param {number} num - The number to check
+ * @returns {boolean} - True if the number is prime, false otherwise
+ */
+function isPrime(num) {
+    // Handle special cases
+    if (num <= 1) return false;
+    if (num <= 3) return true;
+    if (num % 2 === 0 || num % 3 === 0) return false;
+
+    // Check using 6k +/- 1 optimization
+    let i = 5;
+    while (i * i <= num) {
+        if (num % i === 0 || num % (i + 2) === 0) return false;
+        i += 6;
+    }
+
+    return true;
+}
+
+/**
+ * Find all prime numbers in a given range
+ * @param {number} start - Start of the range
+ * @param {number} end - End of the range
+ * @returns {Array} - Array of prime numbers in the range
+ */
+function findPrimesInRange(start, end) {
+    const primes = [];
+    // Ensure start is at least 2 (smallest prime)
+    start = Math.max(2, Math.floor(start));
+    end = Math.floor(end);
+
+    for (let num = start; num <= end; num++) {
+        if (isPrime(num)) {
+            primes.push(num);
+        }
+    }
+
+    return primes;
+}
+
+/**
+ * Find the prime factorization of a number
+ * @param {number} num - The number to factorize
+ * @returns {Array} - Array of prime factors
+ */
+function primeFactorization(num) {
+    if (num <= 1) return [num];
+
+    const factors = [];
+    let n = num;
+
+    // Check for factor 2 first (optimization)
+    while (n % 2 === 0) {
+        factors.push(2);
+        n /= 2;
+    }
+
+    // Check for odd factors
+    for (let i = 3; i * i <= n; i += 2) {
+        while (n % i === 0) {
+            factors.push(i);
+            n /= i;
+        }
+    }
+
+    // If n is a prime number greater than 2
+    if (n > 2) {
+        factors.push(n);
+    }
+
+    return factors;
+}
+
+/**
+ * Format the prime factorization as a string expression
+ * @param {Array} factors - Array of prime factors
+ * @returns {string} - Formatted prime factorization expression
+ */
+function formatPrimeFactorization(factors) {
+    if (factors.length === 0 || (factors.length === 1 && factors[0] <= 1)) {
+        return "No prime factorization for this number";
+    }
+
+    // Group factors and count occurrences
+    const factorCount = {};
+    factors.forEach(factor => {
+        factorCount[factor] = (factorCount[factor] || 0) + 1;
+    });
+
+    // Format as a product expression
+    return Object.entries(factorCount)
+        .map(([factor, count]) => count === 1 ? factor : `${factor}^${count}`)
+        .join(" × ");
+}
+
