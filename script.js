@@ -259,3 +259,68 @@ document.addEventListener('DOMContentLoaded', function() {
         quadraticResult.textContent = resultText;
     });
 });
+
+// ---- AGE CALCULATOR ----
+document.addEventListener('DOMContentLoaded', function() {
+    // Add this to your existing DOMContentLoaded event listener
+    // or create a new one if needed
+
+    const birthDateInput = document.getElementById('birth-date');
+    const useCustomDateCheckbox = document.getElementById('use-custom-date');
+    const referenceDateContainer = document.getElementById('reference-date-container');
+    const referenceDateInput = document.getElementById('reference-date');
+    const calculateAgeButton = document.getElementById('calculate-age');
+    const ageResult = document.getElementById('age-result');
+    const ageYears = document.getElementById('age-years');
+    const ageMonths = document.getElementById('age-months');
+    const ageDays = document.getElementById('age-days');
+
+    // Set default value for reference date (today)
+    const today = new Date();
+    const formattedDate = today.toISOString().substring(0, 10); // Format as YYYY-MM-DD
+    referenceDateInput.value = formattedDate;
+
+    // Toggle reference date input visibility
+    useCustomDateCheckbox.addEventListener('change', function() {
+        referenceDateContainer.style.display = this.checked ? 'block' : 'none';
+    });
+
+    calculateAgeButton.addEventListener('click', function() {
+        const birthDate = new Date(birthDateInput.value);
+
+        // Check if birth date is valid
+        if (isNaN(birthDate.getTime())) {
+            ageResult.textContent = "Please enter a valid birth date";
+            ageYears.textContent = "";
+            ageMonths.textContent = "";
+            ageDays.textContent = "";
+            return;
+        }
+
+        const referenceDate = useCustomDateCheckbox.checked ?
+            new Date(referenceDateInput.value) : new Date();
+
+        // Check if reference date is valid
+        if (isNaN(referenceDate.getTime())) {
+            ageResult.textContent = "Please enter a valid reference date";
+            ageYears.textContent = "";
+            ageMonths.textContent = "";
+            ageDays.textContent = "";
+            return;
+        }
+
+        const age = calculateAge(birthDate, referenceDate);
+
+        if (age.error) {
+            ageResult.textContent = age.error;
+            ageYears.textContent = "";
+            ageMonths.textContent = "";
+            ageDays.textContent = "";
+        } else {
+            ageResult.textContent = `${age.years} years, ${age.months} months, and ${age.days} days`;
+            ageYears.textContent = `Total years: ${age.years}`;
+            ageMonths.textContent = `Total months: ${age.years * 12 + age.months}`;
+            ageDays.textContent = `Total days: ${age.totalDays}`;
+        }
+    });
+});

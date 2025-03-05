@@ -38,7 +38,7 @@
                     <button class="nav-link col-12" id="quadratic-tab" data-bs-toggle="tab" data-bs-target="#quadratic-calc" type="button" role="tab" aria-controls="quadratic-calc" aria-selected="false">Quadratic Equation</button>
                 </li>
                 <li class="nav-item col-md-4" role="presentation">
-                    <button class="nav-link col-12" id="bmi-tab" data-bs-toggle="tab" data-bs-target="#bmi-calc" type="button" role="tab" aria-controls="bmi-calc" aria-selected="false">placeholder</button>
+                    <button class="nav-link col-12" id="age-tab" data-bs-toggle="tab" data-bs-target="#age-calc" type="button" role="tab" aria-controls="age-calc" aria-selected="false">Age Calculator</button>
                 </li>
                 <li class="nav-item col-md-4" role="presentation">
                     <button class="nav-link col-12" id="bmi-tab" data-bs-toggle="tab" data-bs-target="#bmi-calc" type="button" role="tab" aria-controls="bmi-calc" aria-selected="false">placeholder</button>
@@ -269,9 +269,47 @@
                 </div>
 
                 </div><!--Tab -->
-                <div class="tab-pane fade" id="bmi-calc4" role="tabpanel" aria-labelledby="bmi-tab">
-                    
-                </div><!--Tab -->
+            <div class="tab-pane fade" id="age-calc" role="tabpanel" aria-labelledby="age-tab">
+                <div class="calculator-container p-3">
+                    <h3>Age Calculator</h3>
+                    <p>Calculate exact age based on birth date</p>
+
+                    <div class="mb-3">
+                        <label for="birth-date" class="form-label">Birth Date</label>
+                        <input type="date" id="birth-date" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="use-custom-date">
+                            <label class="form-check-label" for="use-custom-date">
+                                Use a different reference date (instead of today)
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="mb-3" id="reference-date-container" style="display: none;">
+                        <label for="reference-date" class="form-label">Reference Date</label>
+                        <input type="date" id="reference-date" class="form-control">
+                    </div>
+
+                    <div class="text-center mt-3">
+                        <button id="calculate-age" class="btn btn-primary">Calculate Age</button>
+                    </div>
+
+                    <div class="mt-3 p-2 border rounded bg-light">
+                        <h4>Results:</h4>
+                        <div id="age-result" class="fs-4 text-center">Age will appear here</div>
+                        <div id="age-details" class="mt-2">
+                            <div id="age-years"></div>
+                            <div id="age-months"></div>
+                            <div id="age-days"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                <!--Tab -->
                 <div class="tab-pane fade" id="bmi-calc5" role="tabpanel" aria-labelledby="bmi-tab">
                     
                 </div>

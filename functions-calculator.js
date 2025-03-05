@@ -219,3 +219,50 @@ function solveQuadraticEquation(a, b, c) {
     }
 }
 
+
+// ---- AGE CALCULATOR ----
+function calculateAge(birthDate, referenceDate = new Date()) {
+    // Clone dates to avoid modifying the originals
+    const birth = new Date(birthDate);
+    const reference = new Date(referenceDate);
+
+    // Validate dates
+    if (isNaN(birth.getTime()) || isNaN(reference.getTime())) {
+        return { error: "Invalid date" };
+    }
+
+    // Check if birth date is in the future compared to reference date
+    if (birth > reference) {
+        return { error: "Birth date cannot be in the future" };
+    }
+
+    // Extract year, month, and day
+    let years = reference.getFullYear() - birth.getFullYear();
+    let months = reference.getMonth() - birth.getMonth();
+    let days = reference.getDate() - birth.getDate();
+
+    // Adjust negative days
+    if (days < 0) {
+        // Get number of days in the previous month of reference date
+        const prevMonth = new Date(reference.getFullYear(), reference.getMonth() - 1, 1);
+        const daysInPrevMonth = new Date(prevMonth.getFullYear(), prevMonth.getMonth() + 1, 0).getDate();
+
+        days += daysInPrevMonth;
+        months--;
+    }
+
+    // Adjust negative months
+    if (months < 0) {
+        months += 12;
+        years--;
+    }
+
+    return {
+        years: years,
+        months: months,
+        days: days,
+        totalDays: Math.floor((reference - birth) / (1000 * 60 * 60 * 24))
+    };
+}
+
+
